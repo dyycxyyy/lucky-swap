@@ -1,0 +1,153 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type GameEventId__745274460 = Text;
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type MovementDirection__101876272 = {#In; #Out};
+type MovementSource__768870644 =
+  {#BetDebit; #Crowdfunding; #ExcessSweep; #PrizePayout; #PrizePoolTopUp};
+type Movement__930979513 =
+  {
+    amount : Nat;
+    counterparty : Principal;
+    direction : MovementDirection__101876272;
+    gameEventId : GameEventId__745274460;
+    source : MovementSource__768870644;
+    timestamp : Nat
+  };
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__416082931 =
+  {
+    accessControlState : AccessControlState__201339279;
+    allowances : Map__230067015<Principal, Map__230067015<Principal, Nat>>;
+    balances : Map__230067015<Principal, Nat>;
+    icpLedgerPrincipal : Principal;
+    integrationPrincipals : Map__230067015<Principal, Bool>;
+    movements :
+      Map__230067015<Text,
+                      {
+                        amount : Nat;
+                        counterparty : Principal;
+                        direction : {#In; #Out};
+                        gameEventId : Text;
+                        source :
+                          {
+                            #BetDebit;
+                            #Crowdfunding;
+                            #ExcessSweep;
+                            #PrizePayout;
+                            #PrizePoolTopUp
+                          };
+                        timestamp : Nat
+                      }>;
+    poolState :
+      {var poolLucky : Nat; var totalSupply : Nat; var treasuryLucky : Nat};
+    prizePools : Map__230067015<Text, Nat>
+  };
+type NewActor__793188255 =
+  {
+    accessControlState : AccessControlState__201339279;
+    allowances : Map__230067015<Principal, Map__230067015<Principal, Nat>>;
+    balances : Map__230067015<Principal, Nat>;
+    icpLedgerPrincipal : Principal;
+    poolState :
+      {var poolLucky : Nat; var totalSupply : Nat; var treasuryLucky : Nat}
+  };
+type NewActor__858752090 =
+  {
+    accessControlState : AccessControlState__201339279;
+    allowances : Map__230067015<Principal, Map__230067015<Principal, Nat>>;
+    balances : Map__230067015<Principal, Nat>;
+    icpLedgerPrincipal : Principal;
+    poolState :
+      {var poolLucky : Nat; var totalSupply : Nat; var treasuryLucky : Nat};
+    preferences : Map__230067015<Principal, {logoId : Nat}>
+  };
+type NewActor__969407957 =
+  {
+    accessControlState : AccessControlState__201339279;
+    allowances : Map__230067015<Principal, Map__230067015<Principal, Nat>>;
+    balances : Map__230067015<Principal, Nat>;
+    icpLedgerPrincipal : Principal;
+    poolState :
+      {var poolLucky : Nat; var totalSupply : Nat; var treasuryLucky : Nat}
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__177421090 =
+  {
+    accessControlState : AccessControlState__201339279;
+    allowances : Map__230067015<Principal, Map__230067015<Principal, Nat>>;
+    balances : Map__230067015<Principal, Nat>;
+    icpLedgerPrincipal : Principal;
+    poolState :
+      {var poolLucky : Nat; var totalSupply : Nat; var treasuryLucky : Nat}
+  };
+type OldActor__386101605 =
+  {
+    accessControlState : AccessControlState__201339279;
+    allowances : Map__230067015<Principal, Map__230067015<Principal, Nat>>;
+    balances : Map__230067015<Principal, Nat>;
+    icpLedgerPrincipal : Principal;
+    poolState :
+      {var poolLucky : Nat; var totalSupply : Nat; var treasuryLucky : Nat};
+    preferences : Map__230067015<Principal, {logoId : Nat}>
+  };
+type OldActor__904324871 = {};
+type OldActor__927544402 =
+  {
+    accessControlState : AccessControlState__201339279;
+    allowances : Map__230067015<Principal, Map__230067015<Principal, Nat>>;
+    balances : Map__230067015<Principal, Nat>;
+    icpLedgerPrincipal : Principal;
+    poolState :
+      {var poolLucky : Nat; var totalSupply : Nat; var treasuryLucky : Nat}
+  };
+type PrizePoolId__182604962 = Text;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20261004_000000" : OldActor__904324871 -> NewActor__793188255;
+  "20261004_225829" : (old : OldActor__177421090) -> NewActor__858752090;
+  "20261005_000000" : (old : OldActor__386101605) -> NewActor__969407957;
+  "20261006_000000" : (old : OldActor__927544402) -> NewActor__416082931
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable allowances :
+    {
+      var root : Node__204828119<Principal, Map__230067015<Principal, Nat>>;
+      var size : Nat__227979830
+    };
+  stable balances :
+    {var root : Node__204828119<Principal, Nat>; var size : Nat__227979830};
+  stable icpLedgerPrincipal : Principal;
+  stable integrationPrincipals :
+    {var root : Node__204828119<Principal, Bool>; var size : Nat__227979830};
+  stable movements :
+    {
+      var root : Node__204828119<GameEventId__745274460, Movement__930979513>;
+      var size : Nat__227979830
+    };
+  stable poolState :
+    {var poolLucky : Nat; var totalSupply : Nat; var treasuryLucky : Nat};
+  stable prizePools :
+    {
+      var root : Node__204828119<PrizePoolId__182604962, Nat>;
+      var size : Nat__227979830
+    }
+};

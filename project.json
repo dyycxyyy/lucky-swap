@@ -1,0 +1,23 @@
+{
+  "overview": "Lucky Swap is an ICRC-1/ICRC-2 token app with an ICP swap pool, a treasury, and per-user wallets, now with a trusted integration API so an external game can move funds into the treasury, top up its prize pool, debit bets, and pay out winnings.",
+  "features": [
+    "Swap ICP for Lucky tokens and back at a fixed rate",
+    "Per-user Lucky and ICP wallet with send and receive",
+    "Admin treasury with withdraw, mint, and burn controls",
+    "Trusted integration API for an external game to fund the treasury",
+    "Admin withdrawal from the treasury to top up a game prize pool",
+    "Bet debits and prize payouts applied directly to user wallets",
+    "Idempotent integration events with a queryable ledger of every fund movement",
+    "Integration guide page documenting every endpoint for game developers"
+  ],
+  "category": "finance",
+  "tags": [
+    "defi",
+    "token",
+    "treasury",
+    "wallet",
+    "integration",
+    "internet-computer"
+  ],
+  "last_updated": "2026-10-06T13:22:15.714Z"
+}

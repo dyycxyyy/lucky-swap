@@ -1,0 +1,388 @@
+type WalletMovementResult = 
+ variant {
+   Err: IntegrationError;
+   Ok: record {walletBalance: nat;};
+ };
+type WalletBalances = 
+ record {
+   icp: nat;
+   lucky: nat;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type TreasuryResult = 
+ variant {
+   Err: TreasuryError;
+   Ok: nat;
+ };
+type TreasuryIntakeResult = 
+ variant {
+   Err: IntegrationError;
+   Ok: record {treasuryBalance: nat;};
+ };
+type TreasuryError = 
+ variant {
+   InsufficientTreasury: record {
+                           available: nat;
+                           required: nat;
+                         };
+   InvalidAmount: text;
+   NotAdmin;
+   TransferFailed: text;
+ };
+type TransferResult = 
+ variant {
+   Err: TransferError;
+   Ok: nat;
+ };
+type TransferFromResult = 
+ variant {
+   Err: TransferFromError;
+   Ok: nat;
+ };
+type TransferFromError = 
+ variant {
+   BadBurn: record {min_burn_amount: nat;};
+   BadFee: record {expected_fee: nat;};
+   CreatedInFuture: record {ledger_time: nat64;};
+   Duplicate: record {duplicate_of: nat;};
+   GenericError: record {
+                   error_code: nat;
+                   message: text;
+                 };
+   InsufficientAllowance: record {allowance: nat;};
+   InsufficientFunds: record {balance: nat;};
+   TemporarilyUnavailable;
+   TooOld;
+ };
+type TransferFromArgs = 
+ record {
+   amount: nat;
+   created_at_time: opt nat64;
+   fee: opt nat;
+   from: Account;
+   memo: opt blob;
+   spender_subaccount: opt blob;
+   to: Account;
+ };
+type TransferError = 
+ variant {
+   BadBurn: record {min_burn_amount: nat;};
+   BadFee: record {expected_fee: nat;};
+   CreatedInFuture: record {ledger_time: nat64;};
+   Duplicate: record {duplicate_of: nat;};
+   GenericError: record {
+                   error_code: nat;
+                   message: text;
+                 };
+   InsufficientFunds: record {balance: nat;};
+   TemporarilyUnavailable;
+   TooOld;
+ };
+type TransferArgs = 
+ record {
+   amount: nat;
+   created_at_time: opt nat64;
+   fee: opt nat;
+   from_subaccount: opt blob;
+   memo: opt blob;
+   to: Account;
+ };
+type SwapResult = 
+ variant {
+   Err: SwapError;
+   Ok: SwapReceipt;
+ };
+type SwapReceipt = 
+ record {
+   direction: SwapDirection;
+   feeLucky: nat;
+   inputAmount: nat;
+   outputAmount: nat;
+ };
+type SwapQuote = 
+ record {
+   direction: SwapDirection;
+   feeLucky: nat;
+   inputAmount: nat;
+   outputAmount: nat;
+ };
+type SwapError = 
+ variant {
+   IcpTransferFailed: text;
+   InsufficientPoolIcp: record {
+                          available: nat;
+                          required: nat;
+                        };
+   InsufficientPoolLucky: record {
+                            available: nat;
+                            required: nat;
+                          };
+   InsufficientUserIcp: record {
+                          available: nat;
+                          required: nat;
+                        };
+   InsufficientUserLucky: record {
+                            available: nat;
+                            required: nat;
+                          };
+   InvalidAmount: text;
+   LuckyTransferFailed: text;
+ };
+type SwapDirection = 
+ variant {
+   IcpToLucky;
+   LuckyToIcp;
+ };
+type SupportedStandard = 
+ record {
+   name: text;
+   url: text;
+ };
+type SendResult = 
+ variant {
+   Err: SendError;
+   Ok: nat;
+ };
+type SendError = 
+ variant {
+   InsufficientFunds: record {
+                        available: nat;
+                        required: nat;
+                      };
+   InvalidAmount: text;
+   TransferFailed: text;
+ };
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type PrizePoolTopUpResult = 
+ variant {
+   Err: IntegrationError;
+   Ok: record {
+         poolBalance: nat;
+         treasuryBalance: nat;
+       };
+ };
+type PrizePoolId = text;
+type PoolBalances = 
+ record {
+   icp: nat;
+   lucky: nat;
+ };
+type MovementSource = 
+ variant {
+   BetDebit;
+   Crowdfunding;
+   ExcessSweep;
+   PrizePayout;
+   PrizePoolTopUp;
+ };
+type MovementDirection = 
+ variant {
+   In;
+   Out;
+ };
+type Movement = 
+ record {
+   amount: nat;
+   counterparty: principal;
+   direction: MovementDirection;
+   gameEventId: GameEventId;
+   source: MovementSource;
+   timestamp: nat;
+ };
+type MintResult = 
+ variant {
+   Err: MintError;
+   Ok: nat;
+ };
+type MintError = 
+ variant {
+   InvalidAmount: text;
+   NotAdmin;
+ };
+type MetadataValue = 
+ variant {
+   Blob: blob;
+   Int: int;
+   Nat: nat;
+   Text: text;
+ };
+type IntegrationError = 
+ variant {
+   InsufficientFunds: record {
+                        available: nat;
+                        required: nat;
+                      };
+   InsufficientTreasury: record {
+                           available: nat;
+                           required: nat;
+                         };
+   InvalidAmount: text;
+   NotAdmin;
+   NotAuthorized;
+   TransferFailed: text;
+   UnknownPrizePool: PrizePoolId;
+ };
+type GameEventId = text;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type BurnResult = 
+ variant {
+   Err: BurnError;
+   Ok: nat;
+ };
+type BurnError = 
+ variant {
+   InsufficientBalance: record {balance: nat;};
+   InvalidAmount: text;
+   NotAdmin;
+ };
+type ApproveResult = 
+ variant {
+   Err: ApproveError;
+   Ok: nat;
+ };
+type ApproveError = 
+ variant {
+   AllowanceChanged: record {current_allowance: nat;};
+   BadFee: record {expected_fee: nat;};
+   CreatedInFuture: record {ledger_time: nat64;};
+   Duplicate: record {duplicate_of: nat;};
+   Expired: record {ledger_time: nat64;};
+   GenericError: record {
+                   error_code: nat;
+                   message: text;
+                 };
+   InsufficientFunds: record {balance: nat;};
+   TemporarilyUnavailable;
+   TooOld;
+ };
+type ApproveArgs = 
+ record {
+   amount: nat;
+   created_at_time: opt nat64;
+   expected_allowance: opt nat;
+   expires_at: opt nat64;
+   fee: opt nat;
+   from_subaccount: opt blob;
+   memo: opt blob;
+   spender: Account;
+ };
+type AllowanceArgs = 
+ record {
+   account: Account;
+   spender: Account;
+ };
+type Allowance = 
+ record {
+   allowance: nat;
+   expires_at: opt nat64;
+ };
+type Account = 
+ record {
+   owner: principal;
+   subaccount: opt blob;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  authorizeIntegrationPrincipal: ("principal": principal) -> ();
+  burnFrom: (from: principal, amount: nat) -> (BurnResult);
+  creditPrize: (user: principal, amount: nat, payoutEventId: GameEventId) ->
+   (WalletMovementResult);
+  debitBet: (user: principal, amount: nat, betId: GameEventId) ->
+   (WalletMovementResult);
+  execute: (qJson: text) -> (Result) query;
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getMovement: (gameEventId: GameEventId) -> (opt Movement) query;
+  getMyPrincipal: () -> (principal) query;
+  getPoolBalances: () -> (PoolBalances);
+  getPrizePoolBalance: (prizePoolId: PrizePoolId) -> (nat) query;
+  getSwapQuote: (direction: SwapDirection, amount: nat) -> (SwapQuote) query;
+  getTreasuryBalance: () -> (nat) query;
+  getTreasuryPrincipal: () -> (principal) query;
+  getWalletBalances: () -> (WalletBalances);
+  icrc1_balance_of: (account: Account) -> (nat) query;
+  icrc1_decimals: () -> (nat8) query;
+  icrc1_fee: () -> (nat) query;
+  icrc1_metadata: () -> (vec record {
+                               text;
+                               MetadataValue;
+                             }) query;
+  icrc1_name: () -> (text) query;
+  icrc1_supported_standards: () -> (vec SupportedStandard) query;
+  icrc1_symbol: () -> (text) query;
+  icrc1_total_supply: () -> (nat) query;
+  icrc1_transfer: (args: TransferArgs) -> (TransferResult);
+  icrc2_allowance: (args: AllowanceArgs) -> (Allowance) query;
+  icrc2_approve: (args: ApproveArgs) -> (ApproveResult);
+  icrc2_transfer_from: (args: TransferFromArgs) -> (TransferFromResult);
+  isCallerAdmin: () -> (bool) query;
+  isIntegrationPrincipal: ("principal": principal) -> (bool) query;
+  listMovements: () -> (vec Movement) query;
+  mintTo: (to: principal, amount: nat) -> (MintResult);
+  mintToPool: (amount: nat) -> (MintResult);
+  revokeIntegrationPrincipal: ("principal": principal) -> ();
+  schema: () -> (text) query;
+  sendIcp: (to: principal, amount: nat) -> (SendResult);
+  sendLucky: (to: principal, amount: nat) -> (SendResult);
+  submitCrowdfunding: (amount: nat, gameEventId: GameEventId) ->
+   (TreasuryIntakeResult);
+  submitExcessSweep: (amount: nat, gameEventId: GameEventId) ->
+   (TreasuryIntakeResult);
+  swapIcpToLucky: (icpAmount: nat) -> (SwapResult);
+  swapLuckyToIcp: (luckyAmount: nat) -> (SwapResult);
+  topUpPrizePool: (prizePoolId: PrizePoolId, amount: nat) ->
+   (PrizePoolTopUpResult);
+  withdrawTreasury: (amount: nat, to: principal) -> (TreasuryResult);
+}

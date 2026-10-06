@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "Figtree";
+    --font-mono: "Geist Mono";
+    --radius: 0.75rem;
+
+    /* Clover Fortune — warm light finance */
+    --background: 0.985 0.008 150;
+    --foreground: 0.16 0.02 155;
+    --card: 1.0 0.004 150;
+    --card-foreground: 0.16 0.02 155;
+    --popover: 1.0 0.004 150;
+    --popover-foreground: 0.16 0.02 155;
+
+    --primary: 0.46 0.15 155;
+    --primary-foreground: 0.98 0.01 155;
+
+    --secondary: 0.94 0.02 150;
+    --secondary-foreground: 0.26 0.03 155;
+    --muted: 0.94 0.015 150;
+    --muted-foreground: 0.5 0.02 155;
+
+    --accent: 0.72 0.15 80;
+    --accent-foreground: 0.2 0.04 80;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0.01 25;
+
+    --success: 0.55 0.16 150;
+    --warning: 0.72 0.15 85;
+
+    --border: 0.9 0.015 150;
+    --input: 0.9 0.015 150;
+    --ring: 0.46 0.15 155;
+
+    --chart-1: 0.55 0.16 150;
+    --chart-2: 0.72 0.15 80;
+    --chart-3: 0.5 0.12 220;
+    --chart-4: 0.65 0.18 40;
+    --chart-5: 0.6 0.14 300;
+
+    --sidebar: 0.98 0.008 150;
+    --sidebar-foreground: 0.16 0.02 155;
+    --sidebar-primary: 0.46 0.15 155;
+    --sidebar-primary-foreground: 0.98 0.01 155;
+    --sidebar-accent: 0.94 0.02 150;
+    --sidebar-accent-foreground: 0.26 0.03 155;
+    --sidebar-border: 0.9 0.015 150;
+    --sidebar-ring: 0.46 0.15 155;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.5 0.16 158),
+      oklch(0.4 0.13 150)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.97 0.02 150),
+      oklch(0.99 0.008 150)
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Mark system — gold outline (金色描边) on transparent surface.
+       --mark-gold is the stroke color for outline marks: a slightly deeper
+       gold than --accent so a 2px stroke stays legible on warm off-white.
+       --mark-stroke-* are viewBox-unit stroke widths for the 64x64 grid. */
+    --mark-gold: 0.68 0.15 78;
+    --mark-stroke-hair: 2;
+    --mark-stroke-regular: 3;
+    --mark-stroke-bold: 4;
+  }
+
+  .dark {
+    --background: 0.14 0.02 155;
+    --foreground: 0.94 0.01 150;
+    --card: 0.18 0.022 155;
+    --card-foreground: 0.94 0.01 150;
+    --popover: 0.2 0.024 155;
+    --popover-foreground: 0.94 0.01 150;
+
+    --primary: 0.7 0.16 155;
+    --primary-foreground: 0.14 0.02 155;
+
+    --secondary: 0.22 0.025 155;
+    --secondary-foreground: 0.85 0.01 150;
+    --muted: 0.22 0.025 155;
+    --muted-foreground: 0.56 0.015 155;
+
+    --accent: 0.76 0.15 82;
+    --accent-foreground: 0.16 0.03 82;
+
+    --destructive: 0.65 0.19 22;
+    --destructive-foreground: 0.14 0.02 22;
+
+    --success: 0.68 0.16 150;
+    --warning: 0.78 0.15 85;
+
+    --border: 0.28 0.025 155;
+    --input: 0.28 0.025 155;
+    --ring: 0.7 0.16 155;
+
+    --chart-1: 0.68 0.16 150;
+    --chart-2: 0.76 0.15 82;
+    --chart-3: 0.68 0.13 220;
+    --chart-4: 0.72 0.17 40;
+    --chart-5: 0.7 0.15 300;
+
+    --sidebar: 0.18 0.022 155;
+    --sidebar-foreground: 0.94 0.01 150;
+    --sidebar-primary: 0.7 0.16 155;
+    --sidebar-primary-foreground: 0.14 0.02 155;
+    --sidebar-accent: 0.22 0.025 155;
+    --sidebar-accent-foreground: 0.85 0.01 150;
+    --sidebar-border: 0.28 0.025 155;
+    --sidebar-ring: 0.7 0.16 155;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.62 0.16 158),
+      oklch(0.5 0.14 152)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.2 0.024 155),
+      oklch(0.16 0.02 155)
+    );
+
+    /* Gold outline mark on dark: lift lightness so the stroke reads as gold,
+       not muddy brown, against the deep clover-green canvas. */
+    --mark-gold: 0.78 0.15 84;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  .bg-gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Mark system: theme-aware gold stroke for outline clover marks. */
+  .text-mark-gold {
+    color: oklch(var(--mark-gold));
+  }
+  .stroke-mark-gold {
+    stroke: oklch(var(--mark-gold));
+  }
+  /* Vector-effect keeps stroke weight optically constant when a mark is
+     scaled down to 16-24px, so small marks stay crisp instead of hairlining. */
+  .mark-vector {
+    vector-effect: non-scaling-stroke;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* One-shot draw-in for the gold outline clover: the stroke traces itself. */
+  .animate-mark-draw {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: mark-draw 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  /* Fold the safe-area inset into the main bottom padding so it composes with
+     the layout spacing instead of overriding it at equal specificity. */
+  .safe-bottom {
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
